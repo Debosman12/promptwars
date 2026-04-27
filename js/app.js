@@ -1,91 +1,76 @@
-// CinemaSync App Logic
+document.addEventListener('DOMContentLoaded', () => {
+    const timelineItems = document.querySelectorAll('.timeline-item');
+    const progressBar = document.getElementById('overall-progress');
+    const assistantMsg = document.getElementById('assistant-msg');
 
-// Elements
-const timeWidget = document.getElementById('current-time');
+    // Fun facts and tips for each stage
+    const assistantTips = {
+        '1': "Registration is the first and most vital step! Fun fact: some states allow same-day registration at the polls.",
+        '2': "Primaries help narrow down the field. Turnout here is usually lower, so your vote packs a massive punch!",
+        '3': "Election day is always the Tuesday following the first Monday in November. Plan your voting trip early!",
+        '4': "Results can take days to finalize, especially with mail-in ballots. The Electoral College formally casts votes in December."
+    };
 
-// Update Current Time every minute
-function updateTime() {
-    const now = new Date();
-    let hours = now.getHours().toString().padStart(2, '0');
-    let minutes = now.getMinutes().toString().padStart(2, '0');
-    timeWidget.innerText = `${hours}:${minutes}`;
-}
-setInterval(updateTime, 1000);
-updateTime();
+    // Calculate progress based on the furthest active item
+    const updateProgress = () => {
+        const total = timelineItems.length;
+        let activeCount = 0;
+        
+        timelineItems.forEach((item, index) => {
+            if (item.classList.contains('active')) {
+                activeCount = Math.max(activeCount, index + 1);
+            }
+        });
 
-// Update Movie Progress
-// Real implementation would calculate based on actual timestamps.
-// We'll simulate slow progression.
-let prog1 = 45;
-let prog2 = 10;
-const pBar1 = document.getElementById('progress-1');
-const pBar2 = document.getElementById('progress-2');
-const status1 = document.getElementById('status-1');
-const status2 = document.getElementById('status-2');
+        // Add 10% progress just for landing on the page
+        const percentage = total === 0 ? 0 : Math.max(10, (activeCount / total) * 100);
+        progressBar.style.width = `${percentage}%`;
+    };
 
-setInterval(() => {
-    if(prog1 < 100) {
-        prog1 += 0.05;
-        pBar1.style.width = `${prog1}%`;
-        const minsLeft = Math.max(0, Math.floor((100 - prog1) * 1.5));
-        const hrsLeft = Math.floor(minsLeft / 60);
-        const rmins = minsLeft % 60;
-        status1.innerText = `Running - ${hrsLeft > 0 ? hrsLeft + 'h ' : ''}${rmins}m remaining`;
-    }
-    
-    if(prog2 < 100) {
-        prog2 += 0.04;
-        pBar2.style.width = `${prog2}%`;
-        const minsLeft = Math.max(0, Math.floor((100 - prog2) * 1.8));
-        const hrsLeft = Math.floor(minsLeft / 60);
-        const rmins = minsLeft % 60;
-        status2.innerText = `Running - ${hrsLeft > 0 ? hrsLeft + 'h ' : ''}${rmins}m remaining`;
-    }
-}, 5000); // update every 5 sec for subtle progress
+    // Initialize progress bar
+    setTimeout(() => updateProgress(), 100);
 
+    // Add click listeners to timeline items
+    timelineItems.forEach((item) => {
+        item.addEventListener('click', () => {
+            const isCurrentlyActive = item.classList.contains('active');
+            
+            // Close other items for a cleaner accordion effect
+            timelineItems.forEach(other => {
+                if(other !== item) {
+                    other.classList.remove('active');
+                }
+            });
 
-// Fluctuate Wait Times dynamically
-const facilities = [
-    { id: 'food', wait: 2, min: 1, max: 15 },
-    { id: 'washroom', wait: 8, min: 0, max: 12 },
-    { id: 'popcorn', wait: 5, min: 2, max: 20 },
-    { id: 'boxoffice', wait: 0, min: 0, max: 5 }
-];
+            // Toggle clicked item
+            if (!isCurrentlyActive) {
+                item.classList.add('active');
+                
+                // Update assistant message with animation
+                const stage = item.getAttribute('data-stage');
+                assistantMsg.style.opacity = 0;
+                
+                setTimeout(() => {
+                    assistantMsg.textContent = assistantTips[stage];
+                    assistantMsg.style.opacity = 1;
+                }, 300);
 
-function updateFacilitiesColor(facility, value) {
-    const dot = document.getElementById(`${facility.id}-dot`);
-    // Clear existing pulse classes
-    dot.classList.remove('pulse-green', 'pulse-yellow', 'pulse-red');
-    
-    // Determine status class based on wait time context
-    let statusClass = 'pulse-green';
-    if (value > (facility.max * 0.6)) {
-        statusClass = 'pulse-red';
-    } else if (value > (facility.max * 0.3)) {
-        statusClass = 'pulse-yellow';
-    }
-    
-    dot.classList.add(statusClass);
-}
+                // Smooth scroll item into view
+                setTimeout(() => {
+                    item.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 350);
+            } else {
+                item.classList.remove('active');
+                
+                // Reset assistant message
+                assistantMsg.style.opacity = 0;
+                setTimeout(() => {
+                    assistantMsg.textContent = "Tap any stage above to learn more about it!";
+                    assistantMsg.style.opacity = 1;
+                }, 300);
+            }
 
-setInterval(() => {
-    // Randomly select one facility to fluctuate
-    const target = facilities[Math.floor(Math.random() * facilities.length)];
-    
-    // Fluctuate up or down by 1-2 minutes
-    const change = Math.floor(Math.random() * 3) - 1; // -1, 0, 1
-    
-    target.wait = Math.max(target.min, Math.min(target.max, target.wait + change));
-    
-    const waitEl = document.getElementById(`${target.id}-wait`);
-    if(waitEl) {
-        waitEl.innerText = `${target.wait} min`;
-    }
-    
-    updateFacilitiesColor(target, target.wait);
-}, 3500); // Every 3.5 seconds update a wait time
-
-// Initial calculation for colors
-facilities.forEach(f => {
-    updateFacilitiesColor(f, f.wait);
+            updateProgress();
+        });
+    });
 });

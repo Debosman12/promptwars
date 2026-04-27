@@ -3,128 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>CinemaSync</title>
+    <title>Electify | Election Guide</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
     <script type="module" src="js/app.js" defer></script>
 </head>
 <body>
-    <div class="device-container">
-        <!-- Live Context Header -->
-        <header class="top-nav">
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
             <div class="logo">
-                <span class="logo-icon">🎬</span>
-                <h1>CinemaSync</h1>
+                <span class="logo-icon">🗳️</span>
+                <h1>Electify</h1>
             </div>
-            <div class="time-widget" id="current-time">
-                --:--
+            <div class="progress-indicator">
+                <div class="progress-fill" id="overall-progress"></div>
             </div>
         </header>
 
-        <main class="dashboard-container" id="dashboard">
-            
-            <!-- Now Showing Section -->
-            <section class="dashboard-section">
-                <h2 class="section-title">Now Showing</h2>
-                <div class="movie-card" id="movie-1">
-                    <div class="movie-header">
-                        <h3 class="movie-title">Dune: Part Two</h3>
-                        <span class="screen-badge">Screen 1</span>
-                    </div>
-                    <div class="movie-times">
-                        <span>19:30</span>
-                        <div class="progress-bar-container">
-                            <div class="progress-bar" id="progress-1" style="width: 45%;"></div>
-                        </div>
-                        <span>22:15</span>
-                    </div>
-                    <div class="movie-status" id="status-1">Running - 1h 20m remaining</div>
-                </div>
+        <!-- Main Content -->
+        <main class="timeline-container" id="timeline">
+            <div class="intro-section">
+                <h2>Your Guide to the Election Process</h2>
+                <p>Tap a stage to explore what happens, when it happens, and how you can participate.</p>
+            </div>
 
-                <div class="movie-card" id="movie-2">
-                    <div class="movie-header">
-                        <h3 class="movie-title">Godzilla x Kong</h3>
-                        <span class="screen-badge">Screen 4 (IMAX)</span>
-                    </div>
-                    <div class="movie-times">
-                        <span>20:15</span>
-                        <div class="progress-bar-container">
-                            <div class="progress-bar" id="progress-2" style="width: 10%;"></div>
-                        </div>
-                        <span>22:20</span>
-                    </div>
-                    <div class="movie-status" id="status-2">Started recently - 1h 50m remaining</div>
-                </div>
-            </section>
-
-            <!-- Facilities Section -->
-            <section class="dashboard-section facilities-grid">
+            <!-- Timeline Items -->
+            <div class="timeline-track">
                 
-                <div class="facility-card">
-                    <div class="facility-header">
-                        <h4>🍔 Food Court</h4>
-                        <span class="live-dot pulse-green" id="food-dot"></span>
-                    </div>
-                    <div class="facility-body">
-                        <div class="wait-time" id="food-wait">2 min</div>
-                        <div class="wait-label">Wait Time</div>
-                    </div>
-                    <div class="facility-footer">
-                        <span>Closes: 23:30</span>
-                    </div>
-                </div>
-
-                <div class="facility-card">
-                    <div class="facility-header">
-                        <h4>🚻 Washrooms</h4>
-                        <span class="live-dot pulse-red" id="washroom-dot"></span>
-                    </div>
-                    <div class="facility-body">
-                        <div class="wait-time" id="washroom-wait">8 min</div>
-                        <div class="wait-label">Wait Time</div>
-                    </div>
-                    <div class="facility-footer">
-                        <span>Level 2 is busy</span>
+                <!-- Stage 1 -->
+                <div class="timeline-item" data-stage="1">
+                    <div class="timeline-marker">1</div>
+                    <div class="timeline-content">
+                        <h3>Registration & Preparation</h3>
+                        <div class="timeline-date">Months before Election</div>
+                        <div class="details-panel">
+                            <p>Before you can vote, you must register! Deadlines and rules vary by state.</p>
+                            <ul>
+                                <li>Check your voter registration status.</li>
+                                <li>Update your address if you've moved.</li>
+                                <li>Research what's on your local ballot.</li>
+                            </ul>
+                            <button class="action-btn">Learn More</button>
+                        </div>
                     </div>
                 </div>
 
-                <div class="facility-card">
-                    <div class="facility-header">
-                        <h4>🍿 Popcorn Stand</h4>
-                        <span class="live-dot pulse-yellow" id="popcorn-dot"></span>
-                    </div>
-                    <div class="facility-body">
-                        <div class="wait-time" id="popcorn-wait">5 min</div>
-                        <div class="wait-label">Wait Time</div>
-                    </div>
-                    <div class="facility-footer">
-                        <span>Closes: 23:00</span>
-                    </div>
-                </div>
-
-                <div class="facility-card">
-                    <div class="facility-header">
-                        <h4>🎫 Box Office</h4>
-                        <span class="live-dot pulse-green" id="boxoffice-dot"></span>
-                    </div>
-                    <div class="facility-body">
-                        <div class="wait-time" id="boxoffice-wait">0 min</div>
-                        <div class="wait-label">Wait Time</div>
-                    </div>
-                    <div class="facility-footer">
-                        <span>Closes: 22:30</span>
+                <!-- Stage 2 -->
+                <div class="timeline-item" data-stage="2">
+                    <div class="timeline-marker">2</div>
+                    <div class="timeline-content">
+                        <h3>Primaries & Caucuses</h3>
+                        <div class="timeline-date">Spring / Summer</div>
+                        <div class="details-panel">
+                            <p>Political parties choose their candidates for the general election during this phase.</p>
+                            <ul>
+                                <li><strong>Primary:</strong> Vote by secret ballot for your preferred candidate.</li>
+                                <li><strong>Caucus:</strong> A local gathering where voters decide candidates together.</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
 
-            </section>
+                <!-- Stage 3 -->
+                <div class="timeline-item" data-stage="3">
+                    <div class="timeline-marker">3</div>
+                    <div class="timeline-content">
+                        <h3>General Election Day</h3>
+                        <div class="timeline-date">Early November</div>
+                        <div class="details-panel">
+                            <p>The big day! Millions head to the polls or mail in their ballots.</p>
+                            <ul>
+                                <li>Bring required ID (if applicable in your state).</li>
+                                <li>Find your polling place early or mail your ballot on time.</li>
+                                <li>Every vote counts towards the final result!</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stage 4 -->
+                <div class="timeline-item" data-stage="4">
+                    <div class="timeline-marker">4</div>
+                    <div class="timeline-content">
+                        <h3>Results & Transition</h3>
+                        <div class="timeline-date">Late Nov - January</div>
+                        <div class="details-panel">
+                            <p>Votes are certified and the transition of power begins.</p>
+                            <ul>
+                                <li>Votes are tallied and officially certified by each state.</li>
+                                <li>The Electoral College meets (for Presidential elections).</li>
+                                <li>Inauguration Day marks the official start of the new term.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </main>
 
-        <footer class="input-area bottom-info">
-            <p>Welcome to Starlight Cinemas. Enjoy your movie.</p>
-        </footer>
+        <!-- Assistant Chat / Tooltip -->
+        <div class="assistant-widget" id="assistant">
+            <div class="assistant-avatar">🤖</div>
+            <div class="assistant-message" id="assistant-msg">
+                Hey! I'm your election guide. Tap the first step to begin!
+            </div>
+        </div>
     </div>
 </body>
 </html>
