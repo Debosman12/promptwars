@@ -14,4 +14,4 @@ def serve_file(path):
 if __name__ == '__main__':
     # Google Cloud Run provides the port via the PORT environment variable (default 8080)
     port = int(os.environ.get('PORT', 8080))
-    app.run(host='0.0.0.0', port=port)
+app.run(host='0.0.0.0', port=port)

@@ -8,20 +8,13 @@ steps:
     args: ['push', 'gcr.io/$PROJECT_ID/electify-app']
   
   # Deploy to Cloud Run
-  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-    entrypoint: gcloud
+ steps:
+  - name: 'gcr.io/cloud-builders/docker'
     args:
-      - 'run'
-      - 'deploy'
-      - 'electify-app'
-      - '--image'
-      - 'gcr.io/$PROJECT_ID/electify-app'
-      - '--region'
-      - 'us-central1'
-      - '--platform'
-      - 'managed'
-      - '--port'
-      - '8080'
-      - '--allow-unauthenticated'
+      - 'build'
+      - '-t'
+      - 'gcr.io/$PROJECT_ID/electify'
+      - '.'
+
 images:
-  - 'gcr.io/$PROJECT_ID/electify-app'
+  - 'gcr.io/$PROJECT_ID/electify'
